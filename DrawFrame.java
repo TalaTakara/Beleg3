@@ -110,26 +110,9 @@ class Graphfeld extends JPanel{
         PunkteP1.setBounds(100, 100, 150, 50);
         add(PunkteP1);
 
+        addMouseListener(new mouseclick());
+        setVisible(true);
 
-
-        addMouseListener(new Graphfeld.mouseclick());
-    }
-
-    class mouseclick extends MouseAdapter {
-
-        public void mousePressed(MouseEvent e) {
-            int x, y;
-            x = e.getX();
-            y = e.getY();
-
-            System.out.print("blabb");
-
-            if (newNode.getText() != null)
-            M.newNode(newNode.getText(),x,y);
-            newNode.setText(null);
-            System.out.print("blubb");
-            repaint();
-        }
     }
 
     public void paintComponent(Graphics g) {
@@ -149,4 +132,21 @@ class Graphfeld extends JPanel{
         }
 
         }
+
+class mouseclick extends MouseAdapter {
+
+    public void mousePressed(MouseEvent e) {
+        int x, y;
+        x = e.getX();
+        y = e.getY();
+
+         System.out.print("blabb");
+
+//        if (newNode.getText() != null)
+//            M.newNode(newNode.getText(),x,y);
+//        newNode.setText(null);
+//        System.out.print("blubb");
+//        repaint();
+    }
+}
 
