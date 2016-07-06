@@ -13,15 +13,20 @@ import java.awt.event.MouseEvent;
 public class DrawFrame extends JFrame {
 
 
-    JButton bu1, bu2;
+
     JSlider sliderColor, sliderSize, sliderPlayer;
     int fieldsize = 30;
     Graphmaster M;
     private JFrame mainFrame;
-    private JLabel GraphLabel;
-    private JTextField newNode;
+    private JLabel newNodeLabel,newEdge1Label, newEdge2Label;
+    private JButton newNodeButton, newEdge2Button, newEdge1Button,randomButton, saveButton, loadButton;
+    private JTextField newNode,newEdge1,newEdge2,nodes,edges;
+    public static final int GFW = 1300;
+    public static final int GFH = 750;
 
-    DrawFrame( Graphmaster M) {
+
+
+    DrawFrame(Graphmaster M) {
         this.M = M;
 
         mainFrame = new JFrame();
@@ -32,27 +37,78 @@ public class DrawFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
-        GraphLabel = new JLabel("Graph");
 
-        newNode = new JTextField("test", 8);
+
+
+        add(newNodeButton = new JButton("neuer Knoten"));
+        newNodeButton.setBounds(100, 20, 200, 40);
+        newNodeButton.addActionListener(alNewNode);
+
+        add(newNodeButton = new JButton("Knoten löschen "));
+        newNodeButton.setBounds(100, 70, 200, 40);
+        newNodeButton.addActionListener(alDeleteNode);
+
+
+        newNode = new JTextField("Name", 8);
         newNode.setEditable(true);
-        newNode.setBounds(30, 30, 100, 50);
+        newNode.setBounds(100, 120, 200, 40);
         add(newNode);
 
+        add( newEdge1Button = new JButton("neue Kante "));
+         newEdge1Button.setBounds(600, 30, 200, 40);
+         newEdge1Button.addActionListener(alNewEdge);
 
-        Graphfeld GF = new Graphfeld();
-        GF.setLocation(100,200);
-        GF.setSize(1300,750);
+        newEdge1 = new JTextField("Knoten 1", 8);
+        newEdge1.setEditable(true);
+        newEdge1.setBounds(350, 30, 200, 40);
+        add(newEdge1);
+
+        add(newEdge2Button = new JButton("Kante löschen"));
+        newEdge2Button.setBounds(600, 80, 200, 40);
+        newEdge2Button.addActionListener(alDeleteEdge);
+
+        newEdge2 = new JTextField("Knoten 2", 8);
+        newEdge2.setEditable(true);
+        newEdge2.setBounds(350, 80, 200, 40);
+        add(newEdge2);
+
+        add(randomButton = new JButton("Random"));
+        randomButton.setBounds(850, 30, 200, 40);
+        randomButton.addActionListener(alRandom);
+
+        nodes = new JTextField("Knoten", 8);
+        nodes.setEditable(true);
+        nodes.setBounds(850, 90, 90, 40);
+        add(nodes);
+
+        edges = new JTextField("Kanten", 8);
+        edges.setEditable(true);
+        edges.setBounds(950, 90, 90, 40);
+        add(edges);
+
+        add(saveButton = new JButton("speichern"));
+        saveButton.setBounds(1100, 30, 200, 40);
+        saveButton.addActionListener(alSave);
+
+        add(loadButton = new JButton("laden"));
+        loadButton.setBounds(1100, 80, 200, 40);
+        loadButton.addActionListener(alLoad);
+
+
+        Graphfeld GF = new Graphfeld(M);
+        GF.setLocation(100, 200);
+        GF.setSize(GFW, GFH);
         GF.setBackground(Color.white);
+        GF.addMouseListener(new mouseclick());
         add(GF);
 //
 //        PunkteP2 = new JLabel(M.getClaimedP2());
 //        PunkteP2.setBounds(300, 100, 150, 50);
 //        add(PunkteP2);
 //
-//        add(bu1 = new JButton("new Game"));
-//        bu1.setBounds(450, 80, 100, 50);
-//        bu1.addActionListener(alNewGame);
+//        add(newNodeButton = new JButton("new Game"));
+//        newNodeButton.setBounds(450, 80, 100, 50);
+//        newNodeButton.addActionListener(alNewGame);
 //
 //
 //        sliderColor = new JSlider(3, 6, 4);
@@ -69,8 +125,7 @@ public class DrawFrame extends JFrame {
     }
 
 
-
-    ActionListener alNewGame = new ActionListener() {
+    ActionListener alNewNode = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -78,7 +133,47 @@ public class DrawFrame extends JFrame {
         }
     };
 
-    ActionListener alUNDO = new ActionListener() {
+    ActionListener alDeleteNode = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            repaint();
+        }
+    };
+
+    ActionListener alNewEdge = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            repaint();
+        }
+    };
+
+    ActionListener alDeleteEdge = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            repaint();
+        }
+    };
+
+    ActionListener alRandom = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            M.random();
+            repaint();
+        }
+    };
+
+    ActionListener alSave = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            repaint();
+        }
+    };
+
+    ActionListener alLoad = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -90,36 +185,33 @@ public class DrawFrame extends JFrame {
     public void paint(Graphics g) {
         super.paintComponents(g);
 
-       System.out.print("bla");
-
-        }
-
-
-
-
-
-}
-class Graphfeld extends JPanel{
-
-    JLabel PunkteP1;
-    Graphmaster M;
-    JLabel newNode;
-
-    void Graphfeld(){
-        PunkteP1 = new JLabel("bla");
-        PunkteP1.setBounds(100, 100, 150, 50);
-        add(PunkteP1);
-
-        addMouseListener(new mouseclick());
-        setVisible(true);
+        System.out.print("bla");
 
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.fillOval(20, 20, 80, 80);
-      //  int size = M.getSize();
 
+    public class Graphfeld extends JPanel {
+
+        JLabel PunkteP1;
+        Graphmaster M;
+        JLabel newNode;
+
+        Graphfeld(Graphmaster M) {
+            this.M = M;
+            PunkteP1 = new JLabel("bla");
+            PunkteP1.setBounds(100, 100, 150, 50);
+            add(PunkteP1);
+
+            setVisible(true);
+
+        }
+
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setClip(0,0,GFW,GFH);
+            M.paint(g);
+
+            //  int size = M.getSize();
 
 
 //        for ( int i = 0; i < size; i++) {
@@ -127,26 +219,30 @@ class Graphfeld extends JPanel{
 //
 //            g.fillOval(node.getX(), node.getY(), 10, 10);
 //        }
-        System.out.print("bla");
+            System.out.print("bla");
 
         }
 
-        }
+    }
 
-class mouseclick extends MouseAdapter {
 
-    public void mousePressed(MouseEvent e) {
-        int x, y;
-        x = e.getX();
-        y = e.getY();
+    class mouseclick extends MouseAdapter {
 
-         System.out.print("blabb");
+        public void mousePressed(MouseEvent e) {
+            int x, y;
+            x = e.getX();
+            y = e.getY();
+
+            System.out.print("blabb");
 
 //        if (newNode.getText() != null)
 //            M.newNode(newNode.getText(),x,y);
 //        newNode.setText(null);
 //        System.out.print("blubb");
 //        repaint();
+        }
     }
+
 }
 
+// TODO wie bekommt man aus textfeldern den text raus
