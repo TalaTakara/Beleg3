@@ -13,7 +13,13 @@ public class start {
         Graphmaster M = new Graphmaster();
         DrawFrame D = new DrawFrame(M);
 
+
+
         M.random(10,15);
+
+        M.newNode("Berlin",0,0);
+        M.newEdge("Berlin", "Stadt 1");
+        M.deleteNode("Berlin");
 
 //        M.newNode("berlin",100,100 );
 //        M.newNode("berlin",100,100 );

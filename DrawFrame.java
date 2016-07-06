@@ -128,7 +128,7 @@ public class DrawFrame extends JFrame {
     ActionListener alNewNode = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            M.newNode(newNode.getText(),0,0);
             repaint();
         }
     };
@@ -136,7 +136,7 @@ public class DrawFrame extends JFrame {
     ActionListener alDeleteNode = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            M.deleteNode(newNode.getText());
             repaint();
         }
     };
@@ -144,7 +144,7 @@ public class DrawFrame extends JFrame {
     ActionListener alNewEdge = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            M.newEdge(newEdge1.getText(), newEdge2.getText());
             repaint();
         }
     };
@@ -152,15 +152,20 @@ public class DrawFrame extends JFrame {
     ActionListener alDeleteEdge = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            M.deleteEdge(newEdge1.getText(), newEdge2.getText());
             repaint();
         }
     };
 
+
+
+
     ActionListener alRandom = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            M.random();
+            int nodesInt =  Integer.parseInt(nodes.getText());
+            int edgesInt = Integer.parseInt(edges.getText());
+            M.random(nodesInt,edgesInt);
             repaint();
         }
     };
@@ -189,7 +194,9 @@ public class DrawFrame extends JFrame {
 
     }
 
-
+    /**
+     * Draw the field with the Graph*
+     */
     public class Graphfeld extends JPanel {
 
         JLabel PunkteP1;

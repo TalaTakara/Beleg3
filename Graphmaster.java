@@ -14,6 +14,8 @@ public class Graphmaster
 
     public void random(int numNodes, int numEdges){
 
+        nodes.clear();
+
         /** Create new Nodes */
         for (int i = 0; i < numNodes ;  i++) {
             newNode("Stadt " + i, 0, 0);
@@ -32,7 +34,6 @@ public class Graphmaster
             }while(!created) ;
         }
 
-            autoArrange(DrawFrame.GFW, DrawFrame.GFH);
 
     }
 
@@ -41,6 +42,8 @@ public class Graphmaster
             Node node = new Node(name, x, y);
             nodes.put(name, node);
             System.out.println("Node created");
+            autoArrange(DrawFrame.GFW, DrawFrame.GFH);
+
         }
     }
     public boolean newEdge(String name1, String name2 ){
@@ -50,6 +53,7 @@ public class Graphmaster
         Node node2 = nodes.get(name2);
           if(!node1.existEgde(node2)) {
               newEdge(node1, node2);
+              autoArrange(DrawFrame.GFW, DrawFrame.GFH);
               return true;
           }
     }
@@ -64,6 +68,8 @@ public class Graphmaster
     public void deleteNode(String name){
         if(nodes.containsKey(name)){
         deleteNode(nodes.get(name));
+            nodes.remove(name);
+            autoArrange(DrawFrame.GFW, DrawFrame.GFH);
     }}
 
     private void deleteNode(Node node1){
@@ -73,7 +79,7 @@ public class Graphmaster
         for (Node other: nodes_copy) {
             deleteEdge(node1,other);
         }
-        nodes.remove(node1);
+
     }
 
     public void deleteEdge(String name1, String name2){
@@ -81,10 +87,12 @@ public class Graphmaster
         Node node2 = nodes.get(name2);
         deleteEdge(node1, node2);
     }
+
     public void deleteEdge(Node node1, Node node2){
         node1.removeEdge(node2);
         node2.removeEdge(node1);
         System.out.println("Edge deleted");
+        autoArrange(DrawFrame.GFW, DrawFrame.GFH);
     }
 
    public Collection<Node> getNodes(){
