@@ -76,12 +76,12 @@ public class DrawFrame extends JFrame {
         randomButton.setBounds(850, 30, 200, 40);
         randomButton.addActionListener(alRandom);
 
-        nodes = new JTextField("Knoten", 8);
+        nodes = new JTextField("10", 8);
         nodes.setEditable(true);
         nodes.setBounds(850, 90, 90, 40);
         add(nodes);
 
-        edges = new JTextField("Kanten", 8);
+        edges = new JTextField("15", 8);
         edges.setEditable(true);
         edges.setBounds(950, 90, 90, 40);
         add(edges);
@@ -173,7 +173,7 @@ public class DrawFrame extends JFrame {
     ActionListener alSave = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            M.save();
             repaint();
         }
     };
@@ -181,7 +181,7 @@ public class DrawFrame extends JFrame {
     ActionListener alLoad = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            M.load();
             repaint();
         }
     };
