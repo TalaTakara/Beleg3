@@ -76,9 +76,9 @@ public class Graphmaster {
 
     private void deleteNode(Node node1) {
 
-        ArrayList<Node> nodes_copy = new ArrayList<Node>(node1.getEdges());
+        ArrayList<Node> nodesCopy = new ArrayList<Node>(node1.getEdges());
 
-        for (Node other : nodes_copy) {
+        for (Node other : nodesCopy) {
             deleteEdge(node1, other);
         }
 
@@ -131,6 +131,7 @@ public class Graphmaster {
         }
 
     }
+
     public void save() {
         ObjectOutputStream output = null;
         FileOutputStream fileOutput = null;
@@ -140,52 +141,106 @@ public class Graphmaster {
             output.writeObject(nodes);
             output.close();
             fileOutput.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
-            if (output != null) try {output.close();} catch (IOException e){}
-            if (fileOutput != null) try {fileOutput.close();} catch (IOException e){}
+        } finally {
+            if (output != null) try {
+                output.close();
+            } catch (IOException e) {
+            }
+            if (fileOutput != null) try {
+                fileOutput.close();
+            } catch (IOException e) {
+            }
         }
         System.out.print("gespeichert");
 
     }
 
-    public void load(){
+    public void load() {
         FileInputStream fileIn;
         ObjectInputStream in;
         try {
             fileIn = new FileInputStream("nodes.ser");
             in = new ObjectInputStream(fileIn);
             nodes = (HashMap) in.readObject();
-        }catch (IOException i){
+        } catch (IOException i) {
             i.printStackTrace();
             return;
-        }
-        catch (ClassNotFoundException c){
+        } catch (ClassNotFoundException c) {
             c.printStackTrace();
             return;
         }
         System.out.print("geladen");
     }
 
-}
 
-//    public void dfs(Node root)
-//    {
+    public void DFS(String start,String goal) {
+
+        /**
+         * Does not work
+         */
+
+        Node startNode = nodes.get(start);
+        Node goalNode = nodes.get(goal);
+
+        Stack<Node> stack = new Stack<>();
+
+        stack.add(startNode);
+        int n = nodes.size();
+
+        ArrayList<Node> nodesCopy = new ArrayList<Node>();
+        for (Node node : nodesCopy) {
+            node.setVisited(false);
+        }
+
+        while (stack.size() > 0) {
+            Node v = stack.pop();
+            if (!v.isVisited()) {
+                v.setVisited(true);
+                System.out.print(v + " ");
+            }
+        }
+    }
+//        stack = []
+//        stack.append(s)
+//        n = len(adjLists)
+//        visited = []
+//        for i in range(0,n):
+//        visited.append(False)
+//
+//        while(len(stack)>0):
+//        v = stack.pop()
+//        if(not visited[v]):
+//        visited[v] = True
+//        print(v, " ", end='')
+//
+//        # auxiliary stack to visit neighbors in the order they appear
+//        # in the adjacency list
+//        # alternatively: iterate through the adjacency list in reverse order
+//        # but this is only to get the same output as the recursive dfs
+//        # otherwise, this would not be necessary
+//        stack_aux = []
+//        for w in adjLists[v]:
+//        if(not visited[w]):
+//        stack_aux.append(w)
+//        while(len(stack_aux)>0):
+//        stack.append(stack_aux.pop())
+//
+//    }
+//
+
+//    public void dfs(Node root) {
 //        //Avoid infinite loops
-//        if(root == null) return;
+//        if (root == null) return;
 //
 //        System.out.print(root.getVertex() + "\t");
 //        root.state = State.Visited;
 //
 //        //for every child
-//        for(Node n: root.getChild())
-//        {
+//        for (Node n : root.getChild()) {
 //            //if childs state is not visited then recurse
-//            if(n.state == State.Unvisited)
-//            {
+//            if (n.state == State.Unvisited) {
 //                dfs(n);
 //            }
 //        }
@@ -268,4 +323,4 @@ public class Graphmaster {
 //        s.bfs(gBfs.getNode()[0]);
 //
 //    }
-
+}

@@ -1,12 +1,9 @@
 import java.awt.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 
 /**
  * Created by saskia on 21.06.16.
@@ -16,12 +13,16 @@ public class Node implements Serializable {
     String name;
     List<Node> edges;
     int x, y;
+    boolean visited;
+
+
 
     Node(String name, int x, int y) {
         edges = new ArrayList<Node>();
         this.name = name;
         this.x = x;
         this.y = y;
+        visited = false;
 
     }
 
@@ -34,6 +35,13 @@ public class Node implements Serializable {
         return edges;
     }
 
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
 
     /**
      * gives the position back
