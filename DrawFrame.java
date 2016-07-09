@@ -252,4 +252,3 @@ public class DrawFrame extends JFrame {
 
 }
 
-// TODO wie bekommt man aus textfeldern den text raus

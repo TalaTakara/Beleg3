@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 import java.util.List;
 
 
@@ -14,7 +13,6 @@ public class Node implements Serializable {
     List<Node> edges;
     int x, y;
     boolean visited;
-
 
 
     Node(String name, int x, int y) {
@@ -93,6 +91,58 @@ public class Node implements Serializable {
             g.drawLine(x, y, other.getX(), other.getY());
 
         }
+    }
+
+    public boolean depthFirstSearch(Node goal, Stack<Node> path) {
+
+
+        if (visited) {
+            return false;
+        }
+        path.push(this);
+        visited = true;
+        if (this == goal) {
+            return true;
+        }
+
+        for (Node next : edges) {
+            if (next.depthFirstSearch(goal, path)) {
+
+                return true;
+            }
+        }
+        path.pop();
+        return false;
+    }
+
+    public static boolean breathFirstSearch(Node start, Node goal, Stack<Node> path) {
+
+        Deque<Node> toDo = new ArrayDeque<>();
+        Map<Node,Node> map = new HashMap<>();
+
+        start.visited = true;
+        toDo.addLast(start);
+
+        while (!toDo.isEmpty()) {
+            Node current = toDo.remove();
+            if (current == goal) {
+                path.push(current);
+                while (map.containsKey(current)){
+                    path.add(0, map.get(current));
+                    current = map.get(current);
+                }
+                return true;
+            }
+
+            for (Node next : current.edges) {
+                if (!next.visited) {
+                    map.put(next, current);
+                    next.visited = true;
+                    toDo.addLast(next);
+                }
+            }
+        }
+        return false;
     }
 
 

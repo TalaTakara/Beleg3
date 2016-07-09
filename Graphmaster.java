@@ -176,151 +176,49 @@ public class Graphmaster {
 
 
     public void DFS(String start,String goal) {
+        System.out.println("Tiefensuche von " + start +" nach " + goal);
 
-        /**
-         * Does not work
-         */
+        for ( Node node : nodes.values()){
+            node.setVisited(false);
+        }
+
 
         Node startNode = nodes.get(start);
         Node goalNode = nodes.get(goal);
 
-        Stack<Node> stack = new Stack<>();
+        Stack<Node> path= new Stack<>();
 
-        stack.add(startNode);
-        int n = nodes.size();
-
-        ArrayList<Node> nodesCopy = new ArrayList<Node>();
-        for (Node node : nodesCopy) {
-            node.setVisited(false);
-        }
-
-        while (stack.size() > 0) {
-            Node v = stack.pop();
-            if (!v.isVisited()) {
-                v.setVisited(true);
-                System.out.print(v + " ");
+        if (startNode.depthFirstSearch(goalNode, path)){
+            while (!path.empty()){
+                System.out.println(path.pop().getName());
             }
+        }else{
+            System.out.println("Kein Weg!");
+
         }
     }
-//        stack = []
-//        stack.append(s)
-//        n = len(adjLists)
-//        visited = []
-//        for i in range(0,n):
-//        visited.append(False)
-//
-//        while(len(stack)>0):
-//        v = stack.pop()
-//        if(not visited[v]):
-//        visited[v] = True
-//        print(v, " ", end='')
-//
-//        # auxiliary stack to visit neighbors in the order they appear
-//        # in the adjacency list
-//        # alternatively: iterate through the adjacency list in reverse order
-//        # but this is only to get the same output as the recursive dfs
-//        # otherwise, this would not be necessary
-//        stack_aux = []
-//        for w in adjLists[v]:
-//        if(not visited[w]):
-//        stack_aux.append(w)
-//        while(len(stack_aux)>0):
-//        stack.append(stack_aux.pop())
-//
-//    }
-//
 
-//    public void dfs(Node root) {
-//        //Avoid infinite loops
-//        if (root == null) return;
-//
-//        System.out.print(root.getVertex() + "\t");
-//        root.state = State.Visited;
-//
-//        //for every child
-//        for (Node n : root.getChild()) {
-//            //if childs state is not visited then recurse
-//            if (n.state == State.Unvisited) {
-//                dfs(n);
-//            }
-//        }
-//    }
-//
-//    public void bfs(Node root)
-//    {
-//        //Since queue is a interface
-//        Queue<Node> queue = new LinkedList<Node>();
-//
-//        if(root == null) return;
-//
-//        root.state = State.Visited;
-//        //Adds to end of queue
-//        queue.add(root);
-//
-//        while(!queue.isEmpty())
-//        {
-//            //removes from front of queue
-//            Node r = queue.remove();
-//            System.out.print(r.getVertex() + "\t");
-//
-//            //Visit child first before grandchild
-//            for(Node n: r.getChild())
-//            {
-//                if(n.state == State.Unvisited)
-//                {
-//                    queue.add(n);
-//                    n.state = State.Visited;
-//                }
-//            }
-//        }
-//
-//
-//    }
-//
-//    public static Graph createNewGraph()
-//    {
-//        Graph g = new Graph();
-//        Node[] temp = new Node[8];
-//
-//        temp[0] = new Node("A", 3);
-//        temp[1] = new Node("B", 3);
-//        temp[2] = new Node("C", 1);
-//        temp[3] = new Node("D", 1);
-//        temp[4] = new Node("E", 1);
-//        temp[5] = new Node("F", 1);
-//
-//        temp[0].addChildNode(temp[1]);
-//        temp[0].addChildNode(temp[2]);
-//        temp[0].addChildNode(temp[3]);
-//
-//        temp[1].addChildNode(temp[0]);
-//        temp[1].addChildNode(temp[4]);
-//        temp[1].addChildNode(temp[5]);
-//
-//        temp[2].addChildNode(temp[0]);
-//        temp[3].addChildNode(temp[0]);
-//        temp[4].addChildNode(temp[1]);
-//        temp[5].addChildNode(temp[1]);
-//
-//        for (int i = 0; i < 7; i++)
-//        {
-//            g.addNode(temp[i]);
-//        }
-//        return g;
-//    }
-//
-//    public static void main(String[] args) {
-//
-//        Graph gDfs = createNewGraph();
-//        Graphmaster s = new Graphmaster();
-//
-//        System.out.println("--------------DFS---------------");
-//        s.dfs(gDfs.getNode()[0]);
-//        System.out.println();
-//        System.out.println();
-//        Graph gBfs = createNewGraph();
-//        System.out.println("---------------BFS---------------");
-//        s.bfs(gBfs.getNode()[0]);
-//
-//    }
+ public void BFS(String start,String goal){
+     System.out.println("Breitensuche von " + start +" nach " + goal);
+
+     for ( Node node : nodes.values()){
+         node.setVisited(false);
+     }
+
+
+     Node startNode = nodes.get(start);
+     Node goalNode = nodes.get(goal);
+
+     Stack<Node> path= new Stack<>();
+
+     if (startNode.breathFirstSearch(startNode,goalNode, path)){
+         while (!path.empty()){
+             System.out.println(path.pop().getName());
+         }
+     }else{
+         System.out.println("Kein Weg!");
+
+     }
+
+ }
 }

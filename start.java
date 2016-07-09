@@ -16,7 +16,8 @@ public class start {
 
 
         M.random(10,15);
-        M.DFS("Stadt 1", "Stadt 2");
+        M.DFS("Stadt 3", "Stadt 7");
+        M.BFS("Stadt 3", "Stadt 7");
 
         M.newNode("Berlin",0,0);
         M.newEdge("Berlin", "Stadt 1");
