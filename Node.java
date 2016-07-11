@@ -33,10 +33,6 @@ public class Node implements Serializable {
         return edges;
     }
 
-    public boolean isVisited() {
-        return visited;
-    }
-
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
@@ -87,9 +83,7 @@ public class Node implements Serializable {
     public void paintEdges(Graphics g) {
         g.setColor(Color.black);
         for (Node other : edges) {
-
             g.drawLine(x, y, other.getX(), other.getY());
-
         }
     }
 
@@ -101,13 +95,10 @@ public class Node implements Serializable {
         }
         path.push(this);
         visited = true;
-        if (this == goal) {
-            return true;
-        }
+        if (this == goal) {return true;}
 
         for (Node next : edges) {
             if (next.depthFirstSearch(goal, path)) {
-
                 return true;
             }
         }
@@ -131,7 +122,7 @@ public class Node implements Serializable {
                     path.add(0, map.get(current));
                     current = map.get(current);
                 }
-                return true;
+              return true;
             }
 
             for (Node next : current.edges) {

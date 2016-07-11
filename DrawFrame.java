@@ -19,7 +19,7 @@ public class DrawFrame extends JFrame {
     Graphmaster M;
     private JFrame mainFrame;
     private JLabel newNodeLabel,newEdge1Label, newEdge2Label;
-    private JButton newNodeButton, newEdge2Button, newEdge1Button,randomButton, saveButton, loadButton;
+    private JButton newNodeButton, newEdge2Button, newEdge1Button,randomButton, saveButton, loadButton, SearchButton;
     private JTextField newNode,newEdge1,newEdge2,nodes,edges;
     public static final int GFW = 1300;
     public static final int GFH = 750;
@@ -38,8 +38,6 @@ public class DrawFrame extends JFrame {
         setLayout(null);
 
 
-
-
         add(newNodeButton = new JButton("neuer Knoten"));
         newNodeButton.setBounds(100, 20, 200, 40);
         newNodeButton.addActionListener(alNewNode);
@@ -47,6 +45,10 @@ public class DrawFrame extends JFrame {
         add(newNodeButton = new JButton("Knoten löschen "));
         newNodeButton.setBounds(100, 70, 200, 40);
         newNodeButton.addActionListener(alDeleteNode);
+
+        add(SearchButton = new JButton("Suche"));
+        SearchButton .setBounds(350, 120, 200, 40);
+        SearchButton .addActionListener(alSearch);
 
 
         newNode = new JTextField("Name", 8);
@@ -99,30 +101,20 @@ public class DrawFrame extends JFrame {
         GF.setLocation(100, 200);
         GF.setSize(GFW, GFH);
         GF.setBackground(Color.white);
-        GF.addMouseListener(new mouseclick());
         add(GF);
-//
-//        PunkteP2 = new JLabel(M.getClaimedP2());
-//        PunkteP2.setBounds(300, 100, 150, 50);
-//        add(PunkteP2);
-//
-//        add(newNodeButton = new JButton("new Game"));
-//        newNodeButton.setBounds(450, 80, 100, 50);
-//        newNodeButton.addActionListener(alNewGame);
-//
-//
-//        sliderColor = new JSlider(3, 6, 4);
-//        sliderColor.setBounds(100, 20, 300, 50);
-//        sliderColor.setPaintTicks(true);    //Striche werden angezeigt
-//        sliderColor.setPaintLabels(true);  //Zahlen werden angezeigt
-//        sliderColor.setMajorTickSpacing(1); //Abstände im Großraster
-//        add(sliderColor);
-
-//        addMouseListener(new mouseclick());
         mainFrame.pack();
         setVisible(true);
 
     }
+    ActionListener alSearch = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            M.BFS(newEdge1.getText(), newEdge2.getText());
+            M.DFS(newEdge1.getText(), newEdge2.getText());
+            repaint();
+        }
+    };
+
 
 
     ActionListener alNewNode = new ActionListener() {
@@ -189,9 +181,6 @@ public class DrawFrame extends JFrame {
 
     public void paint(Graphics g) {
         super.paintComponents(g);
-
-        System.out.print("bla");
-
     }
 
     /**
@@ -199,54 +188,17 @@ public class DrawFrame extends JFrame {
      */
     public class Graphfeld extends JPanel {
 
-        JLabel PunkteP1;
         Graphmaster M;
-        JLabel newNode;
 
         Graphfeld(Graphmaster M) {
             this.M = M;
-            PunkteP1 = new JLabel("bla");
-            PunkteP1.setBounds(100, 100, 150, 50);
-            add(PunkteP1);
-
             setVisible(true);
-
         }
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             g.setClip(0,0,GFW,GFH);
             M.paint(g);
-
-            //  int size = M.getSize();
-
-
-//        for ( int i = 0; i < size; i++) {
-//            Node node = M.getGraph(i);
-//
-//            g.fillOval(node.getX(), node.getY(), 10, 10);
-//        }
-            System.out.print("bla");
-
-        }
-
-    }
-
-
-    class mouseclick extends MouseAdapter {
-
-        public void mousePressed(MouseEvent e) {
-            int x, y;
-            x = e.getX();
-            y = e.getY();
-
-            System.out.print("blabb");
-
-//        if (newNode.getText() != null)
-//            M.newNode(newNode.getText(),x,y);
-//        newNode.setText(null);
-//        System.out.print("blubb");
-//        repaint();
         }
     }
 

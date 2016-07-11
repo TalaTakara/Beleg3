@@ -81,7 +81,6 @@ public class Graphmaster {
         for (Node other : nodesCopy) {
             deleteEdge(node1, other);
         }
-
     }
 
     public void deleteEdge(String name1, String name2) {
@@ -95,10 +94,6 @@ public class Graphmaster {
         node2.removeEdge(node1);
         System.out.println("Edge deleted");
         autoArrange(DrawFrame.GFW, DrawFrame.GFH);
-    }
-
-    public Collection<Node> getNodes() {
-        return nodes.values();
     }
 
     public void autoArrange(int witdh, int height) {
@@ -131,7 +126,9 @@ public class Graphmaster {
         }
 
     }
-
+    /**
+     * Can save a Map from nodes.ser
+     */
     public void save() {
         ObjectOutputStream output = null;
         FileOutputStream fileOutput = null;
@@ -157,6 +154,9 @@ public class Graphmaster {
 
     }
 
+    /**
+     * Can load a Map from nodes.ser
+     */
     public void load() {
         FileInputStream fileIn;
         ObjectInputStream in;
@@ -174,7 +174,11 @@ public class Graphmaster {
         System.out.print("geladen");
     }
 
-
+    /**
+     * Depth-First-Search
+     * @param start Startgraph for Search
+     * @param goal  goalgraph for Search
+     */
     public void DFS(String start,String goal) {
         System.out.println("Tiefensuche von " + start +" nach " + goal);
 
@@ -189,15 +193,22 @@ public class Graphmaster {
         Stack<Node> path= new Stack<>();
 
         if (startNode.depthFirstSearch(goalNode, path)){
+            System.out.println("Ziel");
             while (!path.empty()){
-                System.out.println(path.pop().getName());
+                System.out.println("     " + path.pop().getName());
             }
+            System.out.println("Start");
         }else{
             System.out.println("Kein Weg!");
 
         }
     }
 
+    /**
+     * Breath-First-Search
+     * @param start Startgraph for Search
+     * @param goal  goalgraph for Search
+     */
  public void BFS(String start,String goal){
      System.out.println("Breitensuche von " + start +" nach " + goal);
 
@@ -212,9 +223,11 @@ public class Graphmaster {
      Stack<Node> path= new Stack<>();
 
      if (startNode.breathFirstSearch(startNode,goalNode, path)){
+         System.out.println("Ziel");
          while (!path.empty()){
-             System.out.println(path.pop().getName());
+             System.out.println("     " + path.pop().getName());
          }
+         System.out.println("Start");
      }else{
          System.out.println("Kein Weg!");
 

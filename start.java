@@ -5,23 +5,16 @@ public class start {
 
     public static void main(String args[]) {
 
-        int n = 1;
-        for (;n<10;n++){
-            System.out.print("bla");
-        }
-
         Graphmaster M = new Graphmaster();
         DrawFrame D = new DrawFrame(M);
 
+            M.random(10,15);
+//         M.DFS("Stadt 3", "Stadt 7")
+//         M.BFS("Stadt 3", "Stadt 7");
 
-
-        M.random(10,15);
-        M.DFS("Stadt 3", "Stadt 7");
-        M.BFS("Stadt 3", "Stadt 7");
-
-        M.newNode("Berlin",0,0);
-        M.newEdge("Berlin", "Stadt 1");
-        M.deleteNode("Berlin");
+//        M.newNode("Berlin",0,0);
+//        M.newEdge("Berlin", "Stadt 1");
+//        M.deleteNode("Berlin");
 
 //        M.newNode("berlin",100,100 );
 //        M.newNode("berlin",100,100 );
@@ -43,7 +36,4 @@ public class start {
         D.repaint();
     }
 }
-
-// TODO Breiten und TiefenSuche
-// TODO GUI eingaben
 
